@@ -1,0 +1,84 @@
+---
+title: "Introducción a ML con Python 🐍"
+subtitle: "Sesión de bienvenida 👋"
+author: "Iván Moreno"
+lang: "es"
+format: 
+  revealjs:
+    embed-resources: true
+    theme: [dark]
+editor_options: 
+  markdown: 
+    wrap: 99
+---
+
+# Introducción
+
+## ¿Quién soy?
+
+Iván Moreno, 
+Software Engineer in AI 🤖
+
+- Ingeniero Informático
+- Máster en Inteligencia Artificial
+- Experiencia en DS & ML en diferentes entornos
+- Actualmente trabajando en proyectos de NLP utilizando LLMs
+
+:::{style="text-align: center;"}
+
+🔗 [ivan.build](https://ivan.build) 
+
+:::
+
+---
+
+# Syllabus
+
+::: {.incremental}
+
+1. Python `101` 🐍
+2. `numpy` – arreglos
+3. `pandas` – data frames
+4. Introducción al aprendizaje automático
+5. `scikit-learn` – primeros pasos
+
+:::
+
+---
+
+# Syllabus
+
+6. Aprendizaje no supervisado
+    1. Medidas de similitud y distancia
+    2. Agrupamientos basados en particiones - e.g., *K-means*
+    3. Agrupamientos jerárquicos - e.g., *bottom-up*
+    4. Análisis de componentes - e.g., *PCA*
+
+---
+
+# Syllabus
+
+7. Aprendizaje Supervisado
+    1. Introducción aprendizaje profundo
+    2. `keras` 101
+    3. `pytorch`
+    4. Large Language Models (LLMs) `101`
+    5. Caso de uso con modelo comercial (OpenAI)
+  
+---
+
+# Herramientas
+
+## Herramientas
+
+- Python 3.10/3.11 con Anaconda: [https://www.anaconda.com/products/distribution#Downloads](https://www.anaconda.com/products/distribution#Downloads)
+- Visual Studio Code: [https://code.visualstudio.com/download](https://code.visualstudio.com/download)
+
+---
+
+# Enlaces
+
+
+💬 Discord: [https://discord.gg/m8gSfMAy](https://discord.gg/m8gSfMAy)
+
+📬 Email: [introml+atelco@ivan.build](mailto:introml+atelco@ivan.build)

@@ -1,6 +1,6 @@
 ---
 title: "Introducción a ML con Python 🐍"
-subtitle: "00_01 - Python 101"
+subtitle: "00_01 * Python 101"
 author: "Iván Moreno"
 lang: "es"
 format: 
@@ -18,12 +18,12 @@ editor_options:
 
 ::: {.incremental}
 
-- Lenguaje de programación interpretado (no compilado)
-- Multiplataforma
-- Multiparadigma (imperativo, orientado a objetos, funcional)
-- Tipado dinámico (no es necesario declarar el tipo de las variables)
-- Orientado a objetos
-- Extensible (módulos y paquetes) y portable (e.g., Jython, una implementación de Python que corre sobre la JVM)
+* Lenguaje de programación interpretado (no compilado)
+* Multiplataforma
+* Multiparadigma (imperativo, orientado a objetos, funcional)
+* Tipado dinámico (no es necesario declarar el tipo de las variables)
+* Orientado a objetos
+* Extensible (módulos y paquetes) y portable (e.g., Jython, una implementación de Python que corre sobre la JVM)
 
 :::
 
@@ -31,10 +31,10 @@ editor_options:
 
 ::: {.incremental}
 
-- Sintaxis sencilla y legible (indentación)
-- Gran cantidad de librerías (compatible con C y C++)
-- Comunidad activa
-- Multiplataforma
+* Sintaxis sencilla y legible (indentación)
+* Gran cantidad de librerías (compatible con C y C++)
+* Comunidad activa
+* Multiplataforma
 
 :::
 
@@ -43,10 +43,10 @@ editor_options:
 
 ## Anaconda
 
-- Distribución de Python (y R) para computación científica
-- Gestor de paquetes (conda)
-- Gestor de entornos (conda)
-- Dos versiones: Anaconda (GUI, ~3GB) y Miniconda (CLI, ~400MB)
+* Distribución de Python (y R) para computación científica
+* Gestor de paquetes (conda)
+* Gestor de entornos (conda)
+* Dos versiones: Anaconda (GUI, ~3GB) y Miniconda (CLI, ~400MB)
 
 . . .
 
@@ -54,10 +54,10 @@ editor_options:
 
 ## Jupyter
 
-- Cuaderno de notas interactivo para la computación científica
-- Celdas de código, texto (Markdown) e imágenes / gráficos
-- Kernels (procesos encargados de ejecutar el código en un lenguaje determinado)
-- Interfaz web (Jupyter Notebook)
+* Cuaderno de notas interactivo para la computación científica
+* Celdas de código, texto (Markdown) e imágenes / gráficos
+* Kernels (procesos encargados de ejecutar el código en un lenguaje determinado)
+* Interfaz web (Jupyter Notebook)
 
 . . .
 
@@ -71,8 +71,8 @@ editor_options:
 
 ## Inicialización del entorno
 
-- Windows: Anaconda Prompt
-- Linux & Mac: Terminal
+* Windows: Anaconda Prompt
+* Linux & Mac: Terminal
 
 . . .
 
@@ -80,18 +80,18 @@ editor_options:
 conda create -n intro python=3.11
 conda activate intro
 python --version
-python -i -c "print('sss 🐍')" # Ctrl + D para salir
+python -i -c "print('sss 🐍')" # Ctrl + D o exit() para salir
 ```
 
 ## Gestión de entornos con `conda`
 
 ::: {.incremental}
 
-- Crear un entorno: `conda create -n <nombre> python=<versión>`
-- Activar un entorno: `conda activate <nombre>`
-- Desactivar un entorno: `conda deactivate`
-- Eliminar un entorno: `conda remove -n <nombre> --all`
-- Listar entornos: `conda env list`
+* Crear un entorno: `conda create -n <nombre> python=<versión>`
+* Activar un entorno: `conda activate <nombre>`
+* Desactivar un entorno: `conda deactivate`
+* Eliminar un entorno: `conda env remove -n <nombre> --all`
+* Listar entornos: `conda env list`
 
 :::
 
@@ -99,9 +99,9 @@ python -i -c "print('sss 🐍')" # Ctrl + D para salir
 
 ::: {.incremental}
 
-- Instalar un paquete: `conda install <paquete>`
-- Eliminar un paquete: `conda remove <paquete>`
-- Listar paquetes: `conda list`
+* Instalar un paquete: `conda install <paquete>`
+* Eliminar un paquete: `conda remove <paquete>`
+* Listar paquetes: `conda list`
 
 :::
 
@@ -109,14 +109,364 @@ python -i -c "print('sss 🐍')" # Ctrl + D para salir
 
 ::: {.incremental}
 
-- `pip` es el gestor de paquetes oficial de Python
-- `conda` es el gestor de paquetes de Anaconda
-- `conda` es más completo (y lento) que `pip` (e.g., gestión de entornos)
-- `conda` se basa en binarios, mientras que `pip` en código fuente (portabilidad, velocidad)
-- `conda` comprueba potenciales conflictos entre dependencias, con resolución automática de conflictos
-- `pip` usa PyPI (Python Package Index), mientras que `conda` usa Anaconda Cloud (pese a que también puede usar PyPI y otros repositorios)
+* `pip` es el gestor de paquetes oficial de Python
+* `conda` es el gestor de paquetes de Anaconda
+* `conda` es más completo (y lento) que `pip` (e.g., gestión de entornos)
+* `conda` se basa en binarios, mientras que `pip` en código fuente (portabilidad, velocidad)
+* `conda` comprueba potenciales conflictos entre dependencias, con resolución automática de conflictos
+* `pip` usa PyPI (Python Package Index), mientras que `conda` usa Anaconda Cloud (pese a que también puede usar PyPI y otros repositorios)
 
 :::
+
+# Sintaxis
+
+## Comentarios
+
+```python
+# Esto es un comentario de una línea
+
+"""
+Esto es un comentario
+de varias líneas
+"""
+```
+
+## Variables
+
+```python
+# Asignación
+a = 1
+b = 2
+c = a + b
+
+# Tipado dinámico
+a = 1
+a = "hola"
+```
+
+## Operadores
+
+| Operador | Descripción |
+| --- | --- |
+| `+` | Suma |
+| `-` | Resta |
+| `*` | Multiplicación |
+| `**` | Potencia |
+| `/` | División |
+| `//` | División entera |
+| `%` | Módulo |
+| `==` | Igualdad (valor) |
+| `is` | Identidad (referencia) |
+| `!=` | Desigualdad (valor) |
+| `is not` | No identidad (referencia) |
+| `> / >= / < / <=` | Mayor / Mayor o igual / Menor / Menor o igual |
+| `and` | Logical AND |
+| `or` | Logical OR |
+| `not` | Logical NOT |
+| `in` | Contenido |
+| `not in` | No contenido |
+
+## Condicionales
+
+```python
+if a > b:
+    print("a es mayor que b")
+elif a < b:
+    print("a es menor que b")
+else:
+    print("a es igual que b")
+```
+
+## Bucles
+
+```python
+# Bucle while
+i = 0
+while i < 10:
+    print(i)
+    i += 1
+
+# Bucle for
+for i in range(10):
+    print(i)
+```
+
+## Funciones
+
+```python
+def funcion(a, b):
+    return a + b
+
+funcion(1, 2)
+```
+
+## Clases
+
+::: {.incremental}
+
+* Las clases son plantillas para crear objetos
+* Los objetos son instancias de una clase
+* Las clases pueden tener atributos y métodos
+* Los atributos son variables de la clase
+* Los métodos son funciones de la clase
+* Los métodos pueden ser de instancia, de clase o estáticos
+* Cuándo utilizar cada tipo de método:
+    * De instancia: acciones pertinenentes a una instancia (self)
+    * De clase: crear constructores alternativos (factory), acceder a los atributos de la clase (cls) (e.g., tipo de figura geométrica)
+    * Estático: utilidades de la clase (e.g., conversión de unidades)
+
+:::
+
+## Clases – Ejemplo
+
+```python
+class Clase:
+    def __init__(self, a, b):
+        self.a = a
+        self.b = b
+
+    def metodo(self):
+        print(self.a + self.b)
+
+    @classmethod
+    def metodo_clase(cls):
+        print("Método de clase")
+
+    @staticmethod
+    def metodo_estatico():
+        print("Método estático")
+
+objeto = Clase(1, 2)
+objeto.metodo()
+Clase.metodo_clase()
+Clase.metodo_estatico()
+```
+
+## Clases – Herencia
+
+```python
+class ClaseHija(Clase):
+    def __init__(self, a, b, c):
+        super().__init__(a, b)
+        self.c = c
+
+    def metodo(self):
+        super().metodo()
+        print(self.c)
+        
+objeto = ClaseHija(1, 2, 3)
+objeto.metodo()
+```
+
+# Tipos de datos
+
+## Números
+
+```python
+# Números
+a = 1
+b = 1.0
+c = 1 + 1j
+```
+
+## Cadenas de texto
+
+```python
+# Cadenas de texto
+a = "Hola"
+b = 'Hola'
+c = """Hola
+Mundo"""
+```
+
+## Booleanos
+
+```python
+# Booleanos
+a = True
+b = False
+```
+
+## None
+
+```python
+# None
+a = None
+```
+
+## Tipos de Secuencias
+
+::: {.incremental}
+
+* Tuplas
+* Listas
+* Secuencias (`range`, `enumerate`, `zip`)
+
+:::
+
+## Tuplas
+
+::: {.incremental}
+
+* Colecciones ordenadas de elementos
+* No se pueden modificar
+* Se pueden iterar (múltiples veces)
+
+:::
+
+```python
+# Tuplas
+tupla = (1, 2, 3, 4, 5)
+tupla[0]
+tupla[0:2]
+tupla[0] = 0 # Error
+```
+
+## Listas
+
+::: {.incremental}
+
+* Colecciones ordenadas de elementos
+* Se pueden modificar
+* Se pueden iterar (múltiples veces)
+* Se pueden rebanar (slicing), concatenar, ordenar y filtrar
+
+:::
+
+```python
+# Listas
+lista = [1, 2, 3, 4, 5]
+lista[0]
+lista[0:2]
+lista[0] = 0
+```
+
+## Secuencias
+
+* Objetos iterables no materalizados en memoria
+* Se pueden iterar una única vez
+
+. . .
+
+```python
+# Secuencias (range)
+secuencia = range(10)
+secuencia[0]
+secuencia[0:2]
+```
+
+```python
+# Secuencias (enumerate)
+secuencia = enumerate(["a", "b", "c"])
+for i, v in secuencia:
+    print(i, v)
+```
+
+```python
+# Secuencias (zip)
+secuencia = zip(["a", "b", "c"], [1, 2, 3])
+for i, v in secuencia:
+    print(i, v)
+```
+
+## Tipos de Mappings
+
+::: {.incremental}
+
+* Diccionarios
+* Conjuntos
+
+:::
+
+## Diccionarios
+
+* Colecciones de pares clave-valor
+
+```python
+# Diccionarios
+diccionario = {"a": 1, "b": 2, "c": 3}
+diccionario["a"]
+diccionario["a"] = 0
+```
+
+## Conjuntos (sets)
+
+* Colecciones no ordenadas de elementos únicos
+
+```python
+# Conjuntos
+conjunto = {1, 2, 3, 4, 5}
+conjunto.add(6)
+conjunto.remove(6)
+```
+
+## Comprehensions
+
+* Sintaxis para crear colecciones a partir de otras colecciones
+
+```python
+# Comprensión de listas
+lista = [x + 1 for x in range(10)]
+```
+
+```python
+# Comprensión de diccionarios
+diccionario = {x: x + 1 for x in range(10)}
+```
+
+```python
+# Comprensión de conjuntos
+conjunto = {x + 1 for x in range(10)}
+```
+
+# Conceptos avanzados
+
+## Decoradores
+
+* Funciones que modifican el comportamiento de otras funciones
+* Se utilizan para añadir funcionalidad a una función sin modificarla
+
+```python
+def decorador(funcion):
+    def wrapper(*args, **kwargs):
+        print("Antes de la función")
+        funcion(*args, **kwargs)
+        print("Después de la función")
+    return wrapper
+
+@decorador
+def funcion():
+    print("Función")
+
+funcion()
+```
+
+## Expresiones lambda
+
+```python
+funcion = lambda x: x + 1
+funcion(1)
+```
+
+## Generadores
+
+```python
+def generador():
+    for i in range(10):
+        yield i
+
+for i in generador():
+    print(i)
+```
+
+## Expresiones generadoras
+
+```python
+lista = [1, 2, 3, 4, 5]
+generador = (x + 1 for x in lista)
+for i in generador:
+    print(i)
+```
 
 # Estructura
 
@@ -124,10 +474,10 @@ python -i -c "print('sss 🐍')" # Ctrl + D para salir
 
 ::: {.incremental}
 
-- Un módulo es un fichero con extensión `.py`
-- Un módulo puede contener funciones, clases, variables, etc.
-- Un módulo puede importar otros módulos
-- Un módulo puede ser ejecutado directamente o importado por otro módulo
+* Un módulo es un fichero con extensión `.py`
+* Un módulo puede contener funciones, clases, variables, etc.
+* Un módulo puede importar otros módulos
+* Un módulo puede ser ejecutado directamente o importado por otro módulo
 
 :::
 
@@ -163,10 +513,10 @@ Hola mundo
 
 ::: {.incremental}
 
-- Un paquete es un conjunto de módulos
-- Un paquete es un directorio con un fichero `__init__.py`
-- Un paquete puede contener otros paquetes (subpaquetes)
-- Un paquete puede ser importado por otro paquete o módulo
+* Un paquete es un conjunto de módulos
+* Un paquete es un directorio con un fichero `__init__.py`
+* Un paquete puede contener otros paquetes (subpaquetes)
+* Un paquete puede ser importado por otro paquete o módulo
 
 :::
 
@@ -186,32 +536,6 @@ $ tree
 import paquete.modulo
 
 paquete.modulo.funcion()
-```
-
-```bash
-$ python main.py
-Hola mundo
-```
-
-## Estructura de programas en Python
-
-```bash
-$ tree
-.
-├── main.py
-└── paquete
-    ├── __init__.py
-    ├── modulo.py
-    └── subpaquete
-        ├── __init__.py
-        └── otro_modulo.py
-```
-
-```python
-# main.py
-import paquete.subpaquete.otro_modulo
-
-paquete.subpaquete.otro_modulo.funcion()
 ```
 
 ```bash

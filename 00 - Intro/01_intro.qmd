@@ -24,7 +24,7 @@ Software Engineer in AI 🤖
 * Experiencia en DS & ML en diferentes entornos
 * Actualmente trabajando en proyectos de NLP utilizando LLMs
 
-:::{style="text-align: center;"}
+::: {style="text-align: center;"}
 
 🔗 [ivan.build](https://ivan.build) 
 
@@ -90,6 +90,8 @@ Software Engineer in AI 🤖
 
 # Enlaces
 
-💬 Discord: [https://discord.gg/m8gSfMAy](https://discord.gg/m8gSfMAy)
+💬 Discord: [discord.gg/m8gSfMAy](https://discord.gg/m8gSfMAy)
+
+🪣 Repo: [github.com/ivanvmoreno/intro-python-ml](https://github.com/ivanvmoreno/intro-python-ml)
 
 📬 Email: [introml+atelco@ivan.build](mailto:introml+atelco@ivan.build)

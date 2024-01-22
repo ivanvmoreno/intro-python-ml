@@ -19,10 +19,10 @@ editor_options:
 Iván Moreno, 
 Software Engineer in AI 🤖
 
-- Ingeniero Informático
-- Máster en Inteligencia Artificial
-- Experiencia en DS & ML en diferentes entornos
-- Actualmente trabajando en proyectos de NLP utilizando LLMs
+* Ingeniero Informático
+* Máster en Inteligencia Artificial
+* Experiencia en DS & ML en diferentes entornos
+* Actualmente trabajando en proyectos de NLP utilizando LLMs
 
 :::{style="text-align: center;"}
 
@@ -30,54 +30,65 @@ Software Engineer in AI 🤖
 
 :::
 
----
-
 # Syllabus
+
+## 1. Primeros pasos
 
 ::: {.incremental}
 
 1. Python `101` 🐍
 2. `numpy` – arreglos
 3. `pandas` – data frames
+
+:::
+
+## 2. Aprendizaje automático
+
+::: {.incremental}
+
 4. Introducción al aprendizaje automático
 5. `scikit-learn` – primeros pasos
 
 :::
 
----
+## 3. Aprendizaje no supervisado
 
-# Syllabus
+::: {.incremental}
 
-6. Aprendizaje no supervisado
-    1. Medidas de similitud y distancia
-    2. Agrupamientos basados en particiones - e.g., *K-means*
-    3. Agrupamientos jerárquicos - e.g., *bottom-up*
-    4. Análisis de componentes - e.g., *PCA*
+1. Medidas de similitud y distancia
+2. Agrupamientos basados en particiones - e.g., *K-means*
+3. Agrupamientos jerárquicos - e.g., *bottom-up*
+4. Análisis de componentes - e.g., *PCA*
 
----
+:::
 
-# Syllabus
+## 4. Aprendizaje Supervisado
 
-7. Aprendizaje Supervisado
-    1. Introducción aprendizaje profundo
-    2. `keras` 101
-    3. `pytorch`
-    4. Large Language Models (LLMs) `101`
-    5. Caso de uso con modelo comercial (OpenAI)
-  
----
+::: {.incremental}
+
+1. Introducción aprendizaje profundo
+2. `keras` 101
+3. `pytorch`
+
+:::
+
+## 5. Large Language Models (LLMs)
+
+::: {.incremental}
+1. LLMs `101`
+2. Caso de uso con modelo comercial (OpenAI)
+
+:::
 
 # Herramientas
 
 ## Herramientas
 
-- Python 3.10/3.11 con Anaconda: [https://www.anaconda.com/products/distribution#Downloads](https://www.anaconda.com/products/distribution#Downloads)
-- Visual Studio Code: [https://code.visualstudio.com/download](https://code.visualstudio.com/download)
+* Python 3.10/3.11 con Anaconda: [https://www.anaconda.com/products/distribution#Downloads](https://www.anaconda.com/products/distribution#Downloads)
+* Visual Studio Code: [https://code.visualstudio.com/download](https://code.visualstudio.com/download)
 
----
 
 # Enlaces
-
 
 💬 Discord: [https://discord.gg/m8gSfMAy](https://discord.gg/m8gSfMAy)
 

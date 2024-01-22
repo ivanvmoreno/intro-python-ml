@@ -1,0 +1,220 @@
+---
+title: "Introducción a ML con Python 🐍"
+subtitle: "00_01 - Python 101"
+author: "Iván Moreno"
+lang: "es"
+format: 
+  revealjs:
+    embed-resources: true
+    theme: [dark]
+editor_options: 
+  markdown: 
+    wrap: 99
+---
+
+# Python 101
+
+## ¿Qué es Python?
+
+::: {.incremental}
+
+- Lenguaje de programación interpretado (no compilado)
+- Multiplataforma
+- Multiparadigma (imperativo, orientado a objetos, funcional)
+- Tipado dinámico (no es necesario declarar el tipo de las variables)
+- Orientado a objetos
+- Extensible (módulos y paquetes) y portable (e.g., Jython, una implementación de Python que corre sobre la JVM)
+
+:::
+
+## ¿Por qué Python?
+
+::: {.incremental}
+
+- Sintaxis sencilla y legible (indentación)
+- Gran cantidad de librerías (compatible con C y C++)
+- Comunidad activa
+- Multiplataforma
+
+:::
+
+
+# Instalación
+
+## Anaconda
+
+- Distribución de Python (y R) para computación científica
+- Gestor de paquetes (conda)
+- Gestor de entornos (conda)
+- Dos versiones: Anaconda (GUI, ~3GB) y Miniconda (CLI, ~400MB)
+
+. . .
+
+![](img/anaconda.png)
+
+## Jupyter
+
+- Cuaderno de notas interactivo para la computación científica
+- Celdas de código, texto (Markdown) e imágenes / gráficos
+- Kernels (procesos encargados de ejecutar el código en un lenguaje determinado)
+- Interfaz web (Jupyter Notebook)
+
+. . .
+
+![](img/jupyter_notebook.webp)
+
+## Descarga Anaconda
+
+[https://www.anaconda.com/products/distribution#Downloads](https://www.anaconda.com/products/distribution#Downloads)
+
+![](img/anaconda_down.png)
+
+## Inicialización del entorno
+
+- Windows: Anaconda Prompt
+- Linux & Mac: Terminal
+
+. . .
+
+```bash
+conda create -n intro python=3.11
+conda activate intro
+python --version
+python -i -c "print('sss 🐍')" # Ctrl + D para salir
+```
+
+## Gestión de entornos con `conda`
+
+::: {.incremental}
+
+- Crear un entorno: `conda create -n <nombre> python=<versión>`
+- Activar un entorno: `conda activate <nombre>`
+- Desactivar un entorno: `conda deactivate`
+- Eliminar un entorno: `conda remove -n <nombre> --all`
+- Listar entornos: `conda env list`
+
+:::
+
+## Gestión de paquetes con `conda`
+
+::: {.incremental}
+
+- Instalar un paquete: `conda install <paquete>`
+- Eliminar un paquete: `conda remove <paquete>`
+- Listar paquetes: `conda list`
+
+:::
+
+## `pip` vs `conda`
+
+::: {.incremental}
+
+- `pip` es el gestor de paquetes oficial de Python
+- `conda` es el gestor de paquetes de Anaconda
+- `conda` es más completo (y lento) que `pip` (e.g., gestión de entornos)
+- `conda` se basa en binarios, mientras que `pip` en código fuente (portabilidad, velocidad)
+- `conda` comprueba potenciales conflictos entre dependencias, con resolución automática de conflictos
+- `pip` usa PyPI (Python Package Index), mientras que `conda` usa Anaconda Cloud (pese a que también puede usar PyPI y otros repositorios)
+
+:::
+
+# Estructura
+
+## Módulos
+
+::: {.incremental}
+
+- Un módulo es un fichero con extensión `.py`
+- Un módulo puede contener funciones, clases, variables, etc.
+- Un módulo puede importar otros módulos
+- Un módulo puede ser ejecutado directamente o importado por otro módulo
+
+:::
+
+## Módulos – Ejemplo
+
+```python
+# módulo.py
+def funcion():
+    print("Hola mundo")
+
+if __name__ == "__main__":
+    funcion()
+```
+
+```bash
+$ python modulo.py
+Hola mundo
+```
+
+```python
+# otro_modulo.py
+import modulo
+
+modulo.funcion()
+```
+
+```bash
+$ python otro_modulo.py
+Hola mundo
+```
+
+## Paquetes
+
+::: {.incremental}
+
+- Un paquete es un conjunto de módulos
+- Un paquete es un directorio con un fichero `__init__.py`
+- Un paquete puede contener otros paquetes (subpaquetes)
+- Un paquete puede ser importado por otro paquete o módulo
+
+:::
+
+## Paquetes – Ejemplo
+
+```bash
+$ tree
+.
+├── main.py
+└── paquete
+    ├── __init__.py
+    └── modulo.py
+```
+
+```python
+# main.py
+import paquete.modulo
+
+paquete.modulo.funcion()
+```
+
+```bash
+$ python main.py
+Hola mundo
+```
+
+## Estructura de programas en Python
+
+```bash
+$ tree
+.
+├── main.py
+└── paquete
+    ├── __init__.py
+    ├── modulo.py
+    └── subpaquete
+        ├── __init__.py
+        └── otro_modulo.py
+```
+
+```python
+# main.py
+import paquete.subpaquete.otro_modulo
+
+paquete.subpaquete.otro_modulo.funcion()
+```
+
+```bash
+$ python main.py
+Hola mundo
+```

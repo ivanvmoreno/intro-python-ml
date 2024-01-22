@@ -62,7 +62,7 @@ Software Engineer in AI 🤖
 
 :::
 
-## 4. Aprendizaje Supervisado
+## 4. Aprendizaje supervisado
 
 ::: {.incremental}
 

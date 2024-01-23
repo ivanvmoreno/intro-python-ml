@@ -7,6 +7,10 @@ format:
   revealjs:
     embed-resources: true
     theme: [dark]
+    output-location: fragment
+execute:
+    echo: true
+engine: jupyter
 editor_options: 
   markdown: 
     wrap: 99
@@ -179,7 +183,7 @@ else:
 
 ## Bucles
 
-```python
+```{python}
 # Bucle while
 i = 0
 while i < 10:
@@ -193,11 +197,12 @@ for i in range(10):
 
 ## Funciones
 
-```python
+```{python}
 def funcion(a, b):
     return a + b
 
-funcion(1, 2)
+
+print(funcion(1, 2))
 ```
 
 ## Clases
@@ -219,7 +224,12 @@ funcion(1, 2)
 
 ## Clases – Ejemplo
 
-```python
+* `__init__`: constructor
+* `self`: referencia a la instancia de la clase
+* `@classmethod`: decorador para métodos de clase
+* `@staticmethod`: decorador para métodos estáticos
+
+```{python}
 class Clase:
     def __init__(self, a, b):
         self.a = a
@@ -236,13 +246,36 @@ class Clase:
     def metodo_estatico():
         print("Método estático")
 
+
 objeto = Clase(1, 2)
 objeto.metodo()
 Clase.metodo_clase()
 Clase.metodo_estatico()
 ```
 
+## Clases – Constructores alternativos
+
+```{python}
+class Clase:
+    def __init__(self, a, b):
+        self.a = a
+        self.b = b
+
+    @classmethod
+    def from_string(cls, string):
+        a, b = string.split(",")
+        return cls(a, b)
+
+
+objeto = Clase.from_string("1,2")
+print(objeto.a)
+```
+
 ## Clases – Herencia
+
+* La herencia permite crear clases que heredan los atributos y métodos de otra clase
+* La clase padre se conoce como *superclase* y la clase hija como *subclase*
+* La subclase puede sobreescribir los métodos de la superclase, pero no existe el concepto de sobrecarga de métodos
 
 ```python
 class ClaseHija(Clase):
@@ -264,9 +297,9 @@ objeto.metodo()
 
 ```python
 # Números
-a = 1
-b = 1.0
-c = 1 + 1j
+a = 1 # Entero
+b = 1.0 # Float
+c = 1 + 1j # Complejo
 ```
 
 ## Cadenas de texto
@@ -279,6 +312,15 @@ c = """Hola
 Mundo"""
 ```
 
+## Cadenas de texto – F-strings
+
+```{python}
+# F-strings
+a = "mundo"
+b = f"Hola {a}"
+print(b)
+```
+
 ## Booleanos
 
 ```python
@@ -288,6 +330,9 @@ b = False
 ```
 
 ## None
+
+* Valor especial que representa la ausencia de valor
+* Equivalente a `null` en otros lenguajes
 
 ```python
 # None
@@ -355,14 +400,14 @@ secuencia[0]
 secuencia[0:2]
 ```
 
-```python
+```{python}
 # Secuencias (enumerate)
 secuencia = enumerate(["a", "b", "c"])
 for i, v in secuencia:
     print(i, v)
 ```
 
-```python
+```{python}
 # Secuencias (zip)
 secuencia = zip(["a", "b", "c"], [1, 2, 3])
 for i, v in secuencia:
@@ -404,19 +449,22 @@ conjunto.remove(6)
 
 * Sintaxis para crear colecciones a partir de otras colecciones
 
-```python
+```{python}
 # Comprensión de listas
 lista = [x + 1 for x in range(10)]
+print(lista)
 ```
 
-```python
+```{python}
 # Comprensión de diccionarios
 diccionario = {x: x + 1 for x in range(10)}
+print(diccionario)
 ```
 
-```python
+```{python}
 # Comprensión de conjuntos
 conjunto = {x + 1 for x in range(10)}
+print(conjunto)
 ```
 
 # Conceptos avanzados
@@ -426,34 +474,58 @@ conjunto = {x + 1 for x in range(10)}
 * Funciones que modifican el comportamiento de otras funciones
 * Se utilizan para añadir funcionalidad a una función sin modificarla
 
-```python
+```{python}
 def decorador(funcion):
     def wrapper(*args, **kwargs):
         print("Antes de la función")
         funcion(*args, **kwargs)
         print("Después de la función")
+
     return wrapper
+
 
 @decorador
 def funcion():
     print("Función")
+
 
 funcion()
 ```
 
 ## Expresiones lambda
 
-```python
+::: {.incremental}
+
+* Funciones anónimas (sin nombre)
+* Se utilizan para crear funciones sencillas que no se van a reutilizar
+* Se pueden utilizar en cualquier lugar donde se necesite una función
+* Sintaxis: `lambda <argumentos>: <expresión>`
+* Equivalente a `def funcion(<argumentos>): return <expresión>`
+
+:::
+
+```{python}
 funcion = lambda x: x + 1
-funcion(1)
+print(funcion(1))
 ```
 
 ## Generadores
 
-```python
+::: {.incremental}
+
+* Funciones que devuelven un iterador
+* Se utilizan para crear secuencias de elementos
+* Iterables una única vez, no se almacenan en memoria
+* Sintaxis: `yield <elemento>`
+* Equivalente a `return <elemento>` pero no finaliza la ejecución de la función
+
+:::
+
+```{python}
 def generador():
     for i in range(10):
         yield i
+
 
 for i in generador():
     print(i)
@@ -461,14 +533,17 @@ for i in generador():
 
 ## Expresiones generadoras
 
-```python
+* Sintaxis para crear generadores de forma más sencilla
+* Se utilizan para crear secuencias de elementos
+
+```{python}
 lista = [1, 2, 3, 4, 5]
 generador = (x + 1 for x in lista)
 for i in generador:
     print(i)
 ```
 
-# Estructura
+# Estructura de programas
 
 ## Módulos
 
@@ -483,8 +558,15 @@ for i in generador:
 
 ## Módulos – Ejemplo
 
+* `__name__`: nombre del módulo
+* `__main__`: nombre del módulo principal
+* Por qué utilizar `if __name__ == "__main__"`
+    * Organización del código (separar código de ejecución directa del código de importación)
+    * Evitar ejecución de código al importar un módulo
+    * Encapsulación de código de ejecución directa
+
 ```python
-# módulo.py
+# modulo.py
 def funcion():
     print("Hola mundo")
 
@@ -520,6 +602,16 @@ Hola mundo
 
 :::
 
+## `__init__.py`
+
+::: {.incremental}
+
+* Fichero vacío que indica que un directorio es un paquete
+* Se ejecuta al importar un paquete
+* Se utiliza para inicializar el paquete (e.g., importar módulos)
+
+:::
+
 ## Paquetes – Ejemplo
 
 ```bash
@@ -541,4 +633,37 @@ paquete.modulo.funcion()
 ```bash
 $ python main.py
 Hola mundo
+```
+
+# Entornos virtuales
+
+## Entornos virtuales
+
+::: {.incremental}
+
+* Un entorno virtual es un directorio que contiene una instalación de Python
+* Permite aislar las dependencias de un proyecto
+* Permite tener múltiples versiones de Python instaladas en el sistema
+* Permite tener múltiples versiones de las dependencias de un proyecto
+
+:::
+
+## Entornos virtuales – Ejemplo
+
+::: {.incremental}
+
+* Crear un entorno virtual: `python -m venv venv`
+* Activar un entorno virtual: `source venv/bin/activate` (Linux & Mac) o `venv\Scripts\activate.bat` (Windows)
+* Desactivar un entorno virtual: `deactivate` (Linux & Mac) o `venv\Scripts\deactivate.bat` (Windows)
+* Instalar dependencias: `pip install <paquete>`
+* Exportar dependencias: `pip freeze > requirements.txt`
+
+:::
+
+```bash
+$ python -m venv venv
+$ source venv/bin/activate # o venv\Scripts\activate.bat
+$ pip install numpy
+$ pip freeze > requirements.txt
+$ deactivate # o source venv/bin/deactivate, venv\Scripts\deactivate.bat
 ```

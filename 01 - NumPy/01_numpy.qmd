@@ -1,0 +1,157 @@
+---
+title: "Introducción a ML con Python 🐍"
+subtitle: "01_01 - `numpy`"
+author: "Iván Moreno"
+lang: "es"
+format: 
+  revealjs:
+    embed-resources: true
+    theme: [dark]
+    output-location: fragment
+execute:
+    echo: true
+engine: jupyter
+editor_options: 
+  markdown: 
+    wrap: 99
+---
+
+# `numpy`
+
+## ¿Qué es `numpy`?
+
+* `numpy` es una librería de Python que nos permite trabajar con vectores y matrices de forma eficiente.
+* Escrita en C, es una de las librerías más rápidas para trabajar con datos en Python.
+* Es la base de otras librerías como `pandas` o `scikit-learn`.
+* Utilizado comúnmente para crear colecciones multidimensionales de datos.
+* Permite realizar operaciones matemáticas de forma eficiente (vectorizadas).
+
+## `ndarray`
+
+* El objeto principal de `numpy` es el `ndarray`.
+* Un `ndarray` es un array multidimensional de elementos del **mismo tipo**.
+
+## Dimensiones
+
+* Un `ndarray` puede tener cualquier número de dimensiones.
+* Cada dimensión se conoce como **eje** (axis).
+* El número de ejes se conoce como **rango** (rank).
+* El tamaño de cada eje se conoce como **forma** (shape).
+
+## Manipulación – stacking
+
+* Podemos concatenar `ndarray` de forma horizontal o vertical.
+* Para ello, utilizamos las funciones `hstack` y `vstack`.
+
+```python
+array1 = np.arange(3)
+array2 = np.arange(3,6)
+array1 # [0,1,2]
+array2 # [3,4,5]
+np.hstack((array1,array2)) # [0,1,2,3,4,5]
+np.vstack((array1,array2)) # [[0,1,2],[3,4,5]]
+```
+
+## Manipulación – split
+
+* Podemos dividir `ndarray` de forma horizontal o vertical.
+* Para ello, utilizamos la función `array_split` o `hsplit` y `vsplit`.
+* La función `array_split` nos permite dividir un `ndarray` en partes de tamaño desigual.
+
+```python
+array1 = np.arange(9).reshape(3,3)
+array1 # [[0,1,2],[3,4,5],[6,7,8]]
+np.hsplit(array1,3) # [[0],[3],[6]]
+np.vsplit(array1,3) # [[0,1,2],[3,4,5],[6,7,8]]
+np.array_split(array1,3) # [[0,1],[3,4],[6,7]]
+```
+
+## Manipulación – indexado y slicing
+
+* Funcionan de forma homóloga a las listas de Python.
+* Con la diferencia de que se devuelven vistas del `ndarray` original.
+* Las vistas son referencias al `ndarray` original, no copias, por lo que cualquier cambio en la vista se refleja en el `ndarray` original.
+* Mucha flexibilidad:
+
+```python
+array1 = np.arange(-3,4) # [-3,-2,-1,0,1,2,3]
+array1[array1 < 0] # [-3,-2,-1]
+array1[array1 % 2 == 0] = 10 # [-3, 10, -1, 10, 1, 10, 3]
+array1[array1 == 10] = 0 # [-3, 0, -1, 0, 1, 0, 3]
+```
+
+## Funciones matemáticas
+
+* `numpy` nos permite realizar operaciones matemáticas de forma eficiente, gracias a la vectorización.
+* Las funciones matemáticas de `numpy` se aplican elemento a elemento.
+* La vectorización es una técnica que permite aplicar operaciones a un conjunto de datos sin necesidad de utilizar bucles.
+* `numpy` ofrece una amplia lista de operadores unarios y binarios.
+
+## Funciones matemáticas - lista
+
+| Tipo | Operador | Descripción |
+| --- | --- | --- |
+| Unario | `abs` | Valor absoluto de cada elemento |
+| Unario | `sqrt` | Raíz cuadrada de cada elemento |
+| Unario | `exp` | Exponencial de cada elemento |
+| Unario | `log` | Logaritmo natural de cada elemento |
+| Unario | `sign` | Signo de cada elemento (-1 si negativo, 0 o 1 si positivo) |
+| Unario | `ceil` | Redondeo al entero más pequeño mayor o igual que cada elemento |
+| Unario | `floor` | Redondeo al entero más grande menor o igual que cada elemento |
+| Unario | `isnan` | Devuelve un array booleano indicando si cada elemento es NaN |
+| Unario | `cos`, `cosh`, `sin`, `sinh`, `tan`, `tanh` | Funciones trigonométricas |
+| Unario | `arccos`, `arccosh`, `arcsin`, `arcsinh`, `arctan`, `arctanh` | Funciones trigonométricas inversas |
+| Binario | `add` | Suma de dos arrays |
+| Binario | `subtract` | Resta de dos arrays |
+| Binario | `multiply` | Multiplicación de dos arrays |
+| Binario | `divide` | División de dos arrays |
+| Binario | `maximum`, `minimum` | Máximo y mínimo de dos arrays |
+| Binario | `greater`, `greater_equal`, `less`, `less_equal`, `equal`, `not_equal` | Operadores de comparación |
+
+## Filtrado (`np.where`)
+
+* La función `np.where` nos permite filtrar un `ndarray` de forma eficiente.
+* Devuelve un `ndarray` con los elementos que cumplen una condición especificada.
+
+```python
+array1 = np.arange(10)
+array1 # [0,1,2,3,4,5,6,7,8,9]
+np.where(array1 % 2 == 0) # [0,2,4,6,8]
+```
+
+## Estadística descriptiva
+
+| Función | Descripción |
+| --- | --- |
+| `sum` | Suma de los elementos |
+| `mean` | Media aritmética de los elementos |
+| `std` | Desviación estándar de los elementos |
+| `cumsum` | Suma acumulada de los elementos |
+| `cumprod` | Producto acumulado de los elementos |
+| `min`, `max` | Mínimo y máximo de los elementos |
+| `any`, `all` | Comprueba si algún elemento es True o si todos los elementos son True |
+| `unique` | Devuelve los elementos únicos del array |
+| `in1d` | Devuelve un array booleano indicando si cada elemento del primer array está contenido en el segundo array |
+| `union1d` | Devuelve la unión de dos arrays |
+| `intersect1d` | Devuelve la intersección de dos arrays |
+
+## Álgebra lineal
+
+* `numpy` incluye funciones y métodos para realizar operaciones de álgebra lineal, como la multiplicación de matrices o resolución de sistemas de ecuaciones.
+* Para ello, utilizamos el módulo `numpy.linalg`.
+
+## Álgebra lineal - lista
+
+| Función | Descripción |
+| --- | --- |
+| `diag` | Devuelve la diagonal de una matriz |
+| `dot` | Producto escalar de dos matrices |
+| `trace` | Devuelve la traza de una matriz |
+| `det` | Devuelve el determinante de una matriz |
+| `inv` | Devuelve la inversa de una matriz |
+| `qr` | Devuelve la descomposición QR de una matriz |
+| `svd` | Devuelve la descomposición SVD de una matriz |
+| `solve` | Resuelve un sistema de ecuaciones lineales |
+| `eig` | Devuelve los autovalores y autovectores de una matriz |
+
+# Práctica

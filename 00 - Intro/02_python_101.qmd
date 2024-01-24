@@ -1,6 +1,6 @@
 ---
 title: "Introducción a ML con Python 🐍"
-subtitle: "00_01 * Python 101"
+subtitle: "00_01 - Python 101"
 author: "Iván Moreno"
 lang: "es"
 format: 
@@ -214,6 +214,13 @@ print(funcion(1, 2))
 * Las clases pueden tener atributos y métodos
 * Los atributos son variables de la clase
 * Los métodos son funciones de la clase
+
+:::
+
+## Clases – métodos
+
+::: {.incremental}
+
 * Los métodos pueden ser de instancia, de clase o estáticos
 * Cuándo utilizar cada tipo de método:
     * De instancia: acciones pertinenentes a una instancia (self)
@@ -388,10 +395,7 @@ lista[0] = 0
 
 ## Secuencias
 
-* Objetos iterables no materalizados en memoria
-* Se pueden iterar una única vez
-
-. . .
+* Objetos iterables immutables (no se pueden modificar)
 
 ```python
 # Secuencias (range)

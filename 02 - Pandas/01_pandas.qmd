@@ -1,0 +1,223 @@
+---
+title: "Introducción a ML con Python 🐍"
+subtitle: "02_01 - `pandas`"
+author: "Iván Moreno"
+lang: "es"
+format: 
+  revealjs:
+    embed-resources: true
+    theme: [dark]
+    output-location: fragment
+execute:
+    echo: true
+engine: jupyter
+editor_options: 
+  markdown: 
+    wrap: 99
+---
+
+# Tipos de datos en DS
+
+## Datos estructurados – Dataframes
+
+* Tablas de datos heterogéneos
+* Comúnmente referidos como *tablas*
+* Cada fila es una observación o *sample*
+* Cada columna es una variable o *feature*
+
+. . .
+
+* Todas las observaciones deben tener el mismo número de variables, aunque pueden tener valores nulos o *missing values*
+* Los valores de las variables pueden ser de diferentes tipos, aunque todos los valores de una misma variable deben ser del mismo tipo
+
+## Variables categóricas
+
+* Variables que toman valores de un conjunto finito y discreto de valores
+* Pueden ser ordinales (ordenadas, e.g. `low`, `medium`, `high`) o nominales (no ordenadas, e.g. `red`, `green`, `blue`)
+* Se pueden representar como cadenas de texto o como enteros
+* En el caso de representarlas como enteros, se denominan *variables dummy* o *variables indicadoras*
+
+## Almacenado de datos estructurados
+
+* Los dataframes se pueden almacenar en diferentes formatos
+* Los más comunes son CSV, SQL, Apache Arrow, etc.
+
+## Datos no estructurados
+
+## JSON
+
+* Formato de texto para el intercambio de datos (APIs, etc.)
+* Basado en la sintaxis de JavaScript
+* Formado por pares clave-valor
+
+## XML
+
+* Similar a JSON, pero con una sintaxis más compleja, basada en etiquetas
+* Espacialmente menos eficiente que JSON (etiquetas)
+
+## Imágenes
+
+* Tensores de 3 dimensiones (ancho, alto, canales)
+* Cada elemento del tensor es un valor de intensidad de un canal de color
+* Los valores de intensidad pueden ser enteros o reales
+* Dependiendo del tipo de imagen, los canales pueden ser RGB, HSV, etc.
+* Múltiples formatos de almacenamiento (PNG, JPEG, etc.), dependiendo del caso de uso
+
+## Más alla
+
+* Audio – Tensores de 1 dimensión (muestras)
+* Texto (no estructurado) – NLP
+
+# `pandas`
+
+## ¿Qué es `pandas`?
+
+* Librería de Python para trabajar de manera eficiente con datos heterogéneos (tablas, series temporales, etc.)
+* Forma parte de `SciPy`, junto con `numpy`, `matplotlib` y `scikit-learn`
+* Permite leer y escribir datos en diferentes formatos (CSV, Excel, SQL, etc.)
+* Se basa en las colecciones `Series` y `DataFrame`
+
+## `Series`
+
+* Estructuras unidimensionales similares a los `ndarray` de `numpy`
+* Cada elemento tiene un índice asociado
+* Se pueden crear a partir de listas, diccionarios, `ndarray`, etc.
+
+```python
+s = pd.Series([1, 2, 3, 4]) # índices por defecto
+s = pd.Series([1, 2, 3, 4], index=['a', 'b', 'c', 'd']) # índices semánticos
+```
+
+## `DataFrame`
+
+* Podemos entender un `DataFrame` como una colección de `Series` concatenadas verticalmente, compartiendo un listado de índices común
+* Se pueden crear a partir de diccionarios, listas de listas, `ndarray`, etc.
+
+```python
+df = pd.DataFrame({'a': [1, 2, 3], 'b': [4, 5, 6]})
+```
+
+## Trabajo con `Series` y `DataFrame`
+
+## Búsqueda de datos
+
+* `<objeto>.isin(<lista>)`: devuelve una máscara booleana con los elementos que están en la lista
+* `<objeto>.loc[<máscara>]`: devuelve los elementos que cumplen la máscara
+* Las máscaras son expresiones booleanas que se pueden combinar con operadores lógicos (`&`, `|`, `~`)
+* `<objeto> in <lista>.index`: booleano que indica si el objeto está en la lista de índices semánticos
+* `<objeto> in <lista>.columns`: booleano que indica si el objeto está en la lista de columnas (solo para `DataFrame`)
+
+## Búsqueda de datos – Ejemplos
+
+```python
+df = pd.DataFrame({'a': [1, 2, 3], 'b': [4, 5, 6]})
+df.loc[df['a'].isin([1, 2])]
+```
+
+## Indexado
+
+* `Series` permiten indexado como los `ndarray` (por índice posicional (e.g. `s[0]`) o semántico (e.g. `s['a']`))
+    * Por defecto, los índices semánticos son los enteros del 0 al `len(s) - 1`
+* `DataFrame`, además, permiten indexado por columna
+
+. . .
+
+* `pandas` siempre interpreta enteros como posiciones, no como índices semánticos (e.g. `df[0]` devuelve la primera columna, no la columna con índice `0`)
+    * Para evitar confusiones, se puede usar `loc` o `iloc`
+    * `loc` permite indexado y slicing por índice semántico
+    * `iloc` permite indexado y slicing por posición
+* En el caso de `DataFrame`, tanto `loc` como `iloc` permiten indexado y slicing por filas y columnas, especificando el eje con el argumento `axis`
+
+## Indexado – Ejemplos
+
+```python
+df = pd.DataFrame({'a': [1, 2, 3], 'b': [4, 5, 6]})
+df.loc[0, 'a']
+df.iloc[0, 0]
+```
+
+## Slicing
+
+* `Series` permiten slicing como los `ndarray` (por índice posicional o semántico)
+* El slicing por índice posicional excluye el extremo superior (al igual que en `ndarray`)
+* El slicing por índice semántico incluye ambos extremos
+* `DataFrame` permiten slicing por filas y columnas, especificando el eje con el argumento `axis`
+
+. . .
+
+* `loc`e `iloc` son útiles para filtrar filas y columnas simultáneamente, y trabajar con un subconjunto de los datos
+* También es posible indexado condicional por máscaras booleanas, que se pueden generar con operadores lógicos
+* Para eliminar filas o columnas, se puede usar el método `drop`, indicando los índices semánticos o posicionales de las filas o columnas a eliminar, y el eje con el argumento `axis`
+
+```python
+df = pd.DataFrame({'a': [1, 2, 3], 'b': [4, 5, 6]})
+df.drop([0, 1], axis=0)
+```
+
+## Ordenado de datos
+
+* `Series` y `DataFrame` tienen el método `sort_values`, que permite ordenar los datos por los valores de una columna o serie
+* El método `sort_index`, que permite ordenar los datos por los índices semánticos o posicionales
+* `rank` retorna el rango de cada elemento de la serie o columna, ordenados por los valores de la serie o columna
+* Todas estas operaciones permiten especificar orden ascendente o descendente con el argumento `ascending`
+
+```python
+df = pd.DataFrame({'a': [1, 2, 3], 'b': [4, 5, 6]})
+df.sort_values('a', ascending=False)
+```
+
+## Operaciones aritméticas
+
+* Las operaciones se realizan elemento a elemento
+* Aquellos casos en los que no hay un valor para una combinación de índices, se rellenan con `NaN`
+* `pandas` permite especificar un valor por defecto para los valores `NaN` con el argumento `fill_value`
+
+| Método | Ejemplo | Expresion Equivalente |
+|-----------|-------------|-----------------------|
+| `add` | `df1.add(df2)` | `df1 + df2` |
+| `sub` | `df1.sub(df2)` | `df1 - df2` |
+| `mul` | `df1.mul(df2)` | `df1 * df2` |
+| `div` | `df1.div(df2)` | `df1 / df2` |
+
+## `apply`
+
+* Permite aplicar una función a cada elemento de una serie o columna
+* La función puede ser una función lambda o una función definida por el usuario
+* `apply` también se puede usar para aplicar una función a cada fila o columna de un `DataFrame`, especificando el eje con el argumento `axis`
+
+```python
+df = pd.DataFrame({'a': [1, 2, 3], 'b': [4, 5, 6]})
+df.apply(lambda x: x ** 2)
+```
+
+## Estadística descriptiva
+
+* `describe` calcula estadística descriptiva básica (media, desviación estándar, cuartiles, etc.)
+
+| Método | Descripción |
+|--------|-------------|
+| `count` | Número de elementos no nulos |
+| `describe` | Estadística descriptiva básica |
+| `min`, `max` | Mínimo y máximo |
+| `argmin`, `argmax` | Índice del mínimo y máximo |
+| `idxmin`, `idxmax` | Índice semántico del mínimo y máximo |
+| `sum` | Suma |
+| `mean` | Media |
+| `median` | Mediana |
+| `std`, `var` | Desviación estándar y varianza |
+| `skew` | Asimetría |
+| `quantile` | Cuantiles |
+| `cumsum` | Suma acumulada |
+| `diff` | Diferencia entre elementos consecutivos |
+
+## Correlación
+
+* `corr` calcula la correlación entre columnas o series
+    * $\rho_{X,Y} = \frac{cov(X,Y)}{\sigma_X \sigma_Y}$
+* `cov` calcula la covarianza entre columnas o series
+    * $cov(X,Y) = E[(X - E[X])(Y - E[Y])]$
+
+```python
+df = pd.DataFrame({'a': [1, 2, 3], 'b': [4, 5, 6]})
+df.corr()
+```

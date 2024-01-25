@@ -657,6 +657,7 @@ Hola mundo
 ::: {.incremental}
 
 * Crear un entorno virtual: `python -m venv venv`
+* Comprobar sobre qué entorno virtual estamos ejecutando: `pip -V`
 * Activar un entorno virtual: `source venv/bin/activate` (Linux & Mac) o `venv\Scripts\activate.bat` (Windows)
 * Desactivar un entorno virtual: `deactivate` (Linux & Mac) o `venv\Scripts\deactivate.bat` (Windows)
 * Instalar dependencias: `pip install <paquete>`
@@ -666,8 +667,8 @@ Hola mundo
 
 ```bash
 $ python -m venv venv
-$ source venv/bin/activate # o venv\Scripts\activate.bat
+$ source venv/bin/activate # o venv\Scripts\activate.bat or .ps1
 $ pip install numpy
 $ pip freeze > requirements.txt
-$ deactivate # o source venv/bin/deactivate, venv\Scripts\deactivate.bat
+$ deactivate
 ```

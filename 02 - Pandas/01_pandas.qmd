@@ -95,32 +95,28 @@ s = pd.Series([1, 2, 3, 4], index=['a', 'b', 'c', 'd']) # índices semánticos
 
 ```python
 df = pd.DataFrame({'a': [1, 2, 3], 'b': [4, 5, 6]})
+df['a'] # devuelve una serie
 ```
 
-## Trabajo con `Series` y `DataFrame`
+## Tipos de índices
 
-## Búsqueda de datos
-
-* `<objeto>.isin(<lista>)`: devuelve una máscara booleana con los elementos que están en la lista
-* `<objeto>.loc[<máscara>]`: devuelve los elementos que cumplen la máscara
-* Las máscaras son expresiones booleanas que se pueden combinar con operadores lógicos (`&`, `|`, `~`)
-* `<objeto> in <lista>.index`: booleano que indica si el objeto está en la lista de índices semánticos
-* `<objeto> in <lista>.columns`: booleano que indica si el objeto está en la lista de columnas (solo para `DataFrame`)
-
-## Búsqueda de datos – Ejemplos
+* Los índices pueden ser __posicionales__ o __semánticos__
+* Los índices posicionales son enteros del 0 al `len(s) - 1`
+* Los índices semánticos son cadenas de texto, enteros, etc.
 
 ```python
-df = pd.DataFrame({'a': [1, 2, 3], 'b': [4, 5, 6]})
-df.loc[df['a'].isin([1, 2])]
+s = pd.Series([1, 2, 3, 4], index=['a', 'b', 'c', 'd'])
+s[0] # índice posicional
+s['a'] # índice semántico
 ```
 
-## Indexado
+## Indexado en `Series` y `DataFrame`
 
 * `Series` permiten indexado como los `ndarray` (por índice posicional (e.g. `s[0]`) o semántico (e.g. `s['a']`))
     * Por defecto, los índices semánticos son los enteros del 0 al `len(s) - 1`
 * `DataFrame`, además, permiten indexado por columna
 
-. . .
+## Indexado en `Series` y `DataFrame`
 
 * `pandas` siempre interpreta enteros como posiciones, no como índices semánticos (e.g. `df[0]` devuelve la primera columna, no la columna con índice `0`)
     * Para evitar confusiones, se puede usar `loc` o `iloc`
@@ -131,27 +127,93 @@ df.loc[df['a'].isin([1, 2])]
 ## Indexado – Ejemplos
 
 ```python
+s = pd.Series([1, 2, 3, 4], index=['a', 'b', 'c', 'd'])
+s[0]
+s['a']
+```
+
+```python
 df = pd.DataFrame({'a': [1, 2, 3], 'b': [4, 5, 6]})
-df.loc[0, 'a']
-df.iloc[0, 0]
+df.loc[0, 'a'] # devuelve el elemento de la primera fila y la columna 'a'
+df.iloc[0, 0] # equivalente
+```
+
+## Máscaras booleanas
+
+* Una máscara booleana es una expresión que devuelve un valor booleano para cada elemento de una colección
+* Se pueden combinar máscaras booleanas con operadores lógicos (`&`, `|`, `~`)
+* Se pueden usar máscaras booleanas para filtrar datos
+
+```python
+df = pd.DataFrame({'a': [1, 2, 3], 'b': [4, 5, 6]})
+df['a'] > 1
+```
+
+## Búsqueda de datos – `isin`
+
+* `<objeto>` puede ser una `Series` o un `DataFrame`
+* `<objeto>.isin(<lista>)`: devuelve una máscara booleana con los elementos que están en la lista
+
+```python
+df = pd.DataFrame({'a': [1, 2, 3], 'b': [4, 5, 6]})
+df.loc[df['a'].isin([1, 2])]
+```
+
+## Búsqueda de datos – `loc`
+
+* `<objeto>.loc[<máscara>]`: devuelve los elementos que cumplen la máscara
+
+```python
+df = pd.DataFrame({'a': [1, 2, 3], 'b': [4, 5, 6]})
+df.loc[df['a'] > 1] # devuelve las filas cuyo valor en la columna 'a' es mayor que 1
+```
+
+## Búsqueda de datos – `in`
+* `<objeto> in <lista>.index`: booleano que indica si el objeto está en la lista de índices semánticos
+* `<objeto> in <lista>.columns`: booleano que indica si el objeto está en la lista de columnas (solo para `DataFrame`)
+
+```python
+df = pd.DataFrame({'a': [1, 2, 3], 'b': [4, 5, 6]})
+'a' in df.columns
 ```
 
 ## Slicing
 
 * `Series` permiten slicing como los `ndarray` (por índice posicional o semántico)
-* El slicing por índice posicional excluye el extremo superior (al igual que en `ndarray`)
+* El slicing por índice posicional excluye el extremo superior (al igual que en `numpy`)
 * El slicing por índice semántico incluye ambos extremos
 * `DataFrame` permiten slicing por filas y columnas, especificando el eje con el argumento `axis`
 
-. . .
-
-* `loc`e `iloc` son útiles para filtrar filas y columnas simultáneamente, y trabajar con un subconjunto de los datos
-* También es posible indexado condicional por máscaras booleanas, que se pueden generar con operadores lógicos
-* Para eliminar filas o columnas, se puede usar el método `drop`, indicando los índices semánticos o posicionales de las filas o columnas a eliminar, y el eje con el argumento `axis`
+```python
+s = pd.Series([1, 2, 3, 4], index=['a', 'b', 'c', 'd'])
+s[0:2]
+s['a':'c']
+```
 
 ```python
 df = pd.DataFrame({'a': [1, 2, 3], 'b': [4, 5, 6]})
-df.drop([0, 1], axis=0)
+df.loc[0:1, 'a':'b'] # devuelve las dos primeras filas y las columnas 'a' y 'b'
+```
+
+## Filtrado de datos
+
+* `loc`e `iloc` son útiles para filtrar filas y columnas simultáneamente, y trabajar con un subconjunto de los datos
+* También es posible indexado condicional por máscaras booleanas, que se pueden generar con operadores lógicos
+
+```python
+df = pd.DataFrame({'a': [1, 2, 3], 'b': [4, 5, 6]})
+df.loc[df['a'] > 1, 'b'] # devuelve los valores de la columna 'b' cuyo valor en la columna 'a' es mayor que 1
+```
+
+## Añadir y eliminar columnas
+
+* Se pueden añadir columnas a un `DataFrame` simplemente asignando una serie a una nueva columna
+* Se pueden eliminar columnas con el método `drop`, indicando el nombre de la columna y el eje con el argumento `axis`
+
+```python
+df = pd.DataFrame({'a': [1, 2, 3], 'b': [4, 5, 6]})
+df['c'] = [7, 8, 9]
+df.drop('c', axis=1)
 ```
 
 ## Ordenado de datos
@@ -172,7 +234,7 @@ df.sort_values('a', ascending=False)
 * Aquellos casos en los que no hay un valor para una combinación de índices, se rellenan con `NaN`
 * `pandas` permite especificar un valor por defecto para los valores `NaN` con el argumento `fill_value`
 
-| Método | Ejemplo | Expresion Equivalente |
+| Método | Ejemplo | Expresión Equivalente |
 |-----------|-------------|-----------------------|
 | `add` | `df1.add(df2)` | `df1 + df2` |
 | `sub` | `df1.sub(df2)` | `df1 - df2` |
@@ -210,14 +272,57 @@ df.apply(lambda x: x ** 2)
 | `cumsum` | Suma acumulada |
 | `diff` | Diferencia entre elementos consecutivos |
 
+## Varianza y desviación estándar
+
+## Varianza
+
+* `var` calcula la varianza
+    * $\sigma^2 = \frac{1}{N} \sum_{i=1}^N (x_i - \mu)^2$
+    * Es una medida de dispersión que indica cuánto se alejan los valores de la media (esperanza)
+    * Es la media aritmética de las desviaciones al cuadrado de cada elemento con respecto a la media
+        * Se elevan al cuadrado para evitar que las desviaciones negativas se cancelen con las positivas
+    * Expresa el grado de cambio de una variable respecto a su media en el tiempo
+
+```python
+df = pd.DataFrame({'a': [1, 2, 3], 'b': [4, 5, 6]})
+df.var() # varianza
+```
+
+## Desviación estándar
+
+* `std` calcula la desviación estándar
+    * $\sigma = \sqrt{\frac{1}{N} \sum_{i=1}^N (x_i - \mu)^2}$
+    * Es la raíz cuadrada de la varianza
+    * Expresa la dispersión (fluctuación / volatilidad) en las mismas unidades que los datos
+
+```python
+df = pd.DataFrame({'a': [1, 2, 3], 'b': [4, 5, 6]})
+df.std() # desviación estándar
+```
+
+## Covarianza y correlación
+
+## Covarianza
+
+* `cov` calcula la covarianza entre columnas o series
+    * $cov(X,Y) = E[(X - E[X])(Y - E[Y])]$
+    * Es la media aritmética de los productos de las desviaciones de cada variable con respecto a su media
+        * Intuitivamente, mide el grado de variación conjunta de dos variables aleatorias respecto a sus medias
+    * Una covarianza positiva indica una relación lineal positiva, mientras que una covarianza negativa indica una relación lineal negativa
+
+```python
+df = pd.DataFrame({'a': [1, 2, 3], 'b': [4, 5, 6]})
+df.cov() # covarianza
+```
+
 ## Correlación
 
 * `corr` calcula la correlación entre columnas o series
     * $\rho_{X,Y} = \frac{cov(X,Y)}{\sigma_X \sigma_Y}$
-* `cov` calcula la covarianza entre columnas o series
-    * $cov(X,Y) = E[(X - E[X])(Y - E[Y])]$
+    * Se define como la covarianza estandarizada, es decir, la covarianza dividida por el producto de las desviaciones estándar de las dos variables
+    * Nos da información sobre la fuerza y la dirección de la relación lineal entre dos variables aleatorias, al contrario que la covarianza, que solo nos da información sobre la dirección
 
 ```python
 df = pd.DataFrame({'a': [1, 2, 3], 'b': [4, 5, 6]})
-df.corr()
+df.corr() # correlación
 ```

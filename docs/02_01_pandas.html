@@ -1321,28 +1321,22 @@ Iván Moreno
 <li>Podemos entender un <code>DataFrame</code> como una colección de <code>Series</code> concatenadas verticalmente, compartiendo un listado de índices común</li>
 <li>Se pueden crear a partir de diccionarios, listas de listas, <code>ndarray</code>, etc.</li>
 </ul>
-<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href></a>df <span class="op">=</span> pd.DataFrame({<span class="st">&#39;a&#39;</span>: [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>], <span class="st">&#39;b&#39;</span>: [<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>]})</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href></a>df <span class="op">=</span> pd.DataFrame({<span class="st">&#39;a&#39;</span>: [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>], <span class="st">&#39;b&#39;</span>: [<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>]})</span>
+<span id="cb2-2"><a href></a>df[<span class="st">&#39;a&#39;</span>] <span class="co"># devuelve una serie</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="trabajo-con-series-y-dataframe" class="slide level2">
-<h2>Trabajo con <code>Series</code> y <code>DataFrame</code></h2>
-</section>
-<section id="búsqueda-de-datos" class="slide level2">
-<h2>Búsqueda de datos</h2>
+<section id="tipos-de-índices" class="slide level2">
+<h2>Tipos de índices</h2>
 <ul>
-<li><code>&lt;objeto&gt;.isin(&lt;lista&gt;)</code>: devuelve una máscara booleana con los elementos que están en la lista</li>
-<li><code>&lt;objeto&gt;.loc[&lt;máscara&gt;]</code>: devuelve los elementos que cumplen la máscara</li>
-<li>Las máscaras son expresiones booleanas que se pueden combinar con operadores lógicos (<code>&amp;</code>, <code>|</code>, <code>~</code>)</li>
-<li><code>&lt;objeto&gt; in &lt;lista&gt;.index</code>: booleano que indica si el objeto está en la lista de índices semánticos</li>
-<li><code>&lt;objeto&gt; in &lt;lista&gt;.columns</code>: booleano que indica si el objeto está en la lista de columnas (solo para <code>DataFrame</code>)</li>
+<li>Los índices pueden ser <strong>posicionales</strong> o <strong>semánticos</strong></li>
+<li>Los índices posicionales son enteros del 0 al <code>len(s) - 1</code></li>
+<li>Los índices semánticos son cadenas de texto, enteros, etc.</li>
 </ul>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href></a>s <span class="op">=</span> pd.Series([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>], index<span class="op">=</span>[<span class="st">&#39;a&#39;</span>, <span class="st">&#39;b&#39;</span>, <span class="st">&#39;c&#39;</span>, <span class="st">&#39;d&#39;</span>])</span>
+<span id="cb3-2"><a href></a>s[<span class="dv">0</span>] <span class="co"># índice posicional</span></span>
+<span id="cb3-3"><a href></a>s[<span class="st">&#39;a&#39;</span>] <span class="co"># índice semántico</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="búsqueda-de-datos-ejemplos" class="slide level2">
-<h2>Búsqueda de datos – Ejemplos</h2>
-<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href></a>df <span class="op">=</span> pd.DataFrame({<span class="st">&#39;a&#39;</span>: [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>], <span class="st">&#39;b&#39;</span>: [<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>]})</span>
-<span id="cb3-2"><a href></a>df.loc[df[<span class="st">&#39;a&#39;</span>].isin([<span class="dv">1</span>, <span class="dv">2</span>])]</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="indexado" class="slide level2">
-<h2>Indexado</h2>
+<section id="indexado-en-series-y-dataframe" class="slide level2">
+<h2>Indexado en <code>Series</code> y <code>DataFrame</code></h2>
 <ul>
 <li><code>Series</code> permiten indexado como los <code>ndarray</code> (por índice posicional (e.g. <code>s[0]</code>) o semántico (e.g. <code>s[&#39;a&#39;]</code>))
 <ul>
@@ -1350,7 +1344,9 @@ Iván Moreno
 </ul></li>
 <li><code>DataFrame</code>, además, permiten indexado por columna</li>
 </ul>
-<div class="fragment">
+</section>
+<section id="indexado-en-series-y-dataframe-1" class="slide level2">
+<h2>Indexado en <code>Series</code> y <code>DataFrame</code></h2>
 <ul>
 <li><code>pandas</code> siempre interpreta enteros como posiciones, no como índices semánticos (e.g. <code>df[0]</code> devuelve la primera columna, no la columna con índice <code>0</code>)
 <ul>
@@ -1360,31 +1356,84 @@ Iván Moreno
 </ul></li>
 <li>En el caso de <code>DataFrame</code>, tanto <code>loc</code> como <code>iloc</code> permiten indexado y slicing por filas y columnas, especificando el eje con el argumento <code>axis</code></li>
 </ul>
-</div>
 </section>
 <section id="indexado-ejemplos" class="slide level2">
 <h2>Indexado – Ejemplos</h2>
-<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href></a>df <span class="op">=</span> pd.DataFrame({<span class="st">&#39;a&#39;</span>: [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>], <span class="st">&#39;b&#39;</span>: [<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>]})</span>
-<span id="cb4-2"><a href></a>df.loc[<span class="dv">0</span>, <span class="st">&#39;a&#39;</span>]</span>
-<span id="cb4-3"><a href></a>df.iloc[<span class="dv">0</span>, <span class="dv">0</span>]</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href></a>s <span class="op">=</span> pd.Series([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>], index<span class="op">=</span>[<span class="st">&#39;a&#39;</span>, <span class="st">&#39;b&#39;</span>, <span class="st">&#39;c&#39;</span>, <span class="st">&#39;d&#39;</span>])</span>
+<span id="cb4-2"><a href></a>s[<span class="dv">0</span>]</span>
+<span id="cb4-3"><a href></a>s[<span class="st">&#39;a&#39;</span>]</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href></a>df <span class="op">=</span> pd.DataFrame({<span class="st">&#39;a&#39;</span>: [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>], <span class="st">&#39;b&#39;</span>: [<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>]})</span>
+<span id="cb5-2"><a href></a>df.loc[<span class="dv">0</span>, <span class="st">&#39;a&#39;</span>] <span class="co"># devuelve el elemento de la primera fila y la columna &#39;a&#39;</span></span>
+<span id="cb5-3"><a href></a>df.iloc[<span class="dv">0</span>, <span class="dv">0</span>] <span class="co"># equivalente</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="máscaras-booleanas" class="slide level2">
+<h2>Máscaras booleanas</h2>
+<ul>
+<li>Una máscara booleana es una expresión que devuelve un valor booleano para cada elemento de una colección</li>
+<li>Se pueden combinar máscaras booleanas con operadores lógicos (<code>&amp;</code>, <code>|</code>, <code>~</code>)</li>
+<li>Se pueden usar máscaras booleanas para filtrar datos</li>
+</ul>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href></a>df <span class="op">=</span> pd.DataFrame({<span class="st">&#39;a&#39;</span>: [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>], <span class="st">&#39;b&#39;</span>: [<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>]})</span>
+<span id="cb6-2"><a href></a>df[<span class="st">&#39;a&#39;</span>] <span class="op">&gt;</span> <span class="dv">1</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="búsqueda-de-datos-isin" class="slide level2">
+<h2>Búsqueda de datos – <code>isin</code></h2>
+<ul>
+<li><code>&lt;objeto&gt;</code> puede ser una <code>Series</code> o un <code>DataFrame</code></li>
+<li><code>&lt;objeto&gt;.isin(&lt;lista&gt;)</code>: devuelve una máscara booleana con los elementos que están en la lista</li>
+</ul>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href></a>df <span class="op">=</span> pd.DataFrame({<span class="st">&#39;a&#39;</span>: [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>], <span class="st">&#39;b&#39;</span>: [<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>]})</span>
+<span id="cb7-2"><a href></a>df.loc[df[<span class="st">&#39;a&#39;</span>].isin([<span class="dv">1</span>, <span class="dv">2</span>])]</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="búsqueda-de-datos-loc" class="slide level2">
+<h2>Búsqueda de datos – <code>loc</code></h2>
+<ul>
+<li><code>&lt;objeto&gt;.loc[&lt;máscara&gt;]</code>: devuelve los elementos que cumplen la máscara</li>
+</ul>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href></a>df <span class="op">=</span> pd.DataFrame({<span class="st">&#39;a&#39;</span>: [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>], <span class="st">&#39;b&#39;</span>: [<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>]})</span>
+<span id="cb8-2"><a href></a>df.loc[df[<span class="st">&#39;a&#39;</span>] <span class="op">&gt;</span> <span class="dv">1</span>] <span class="co"># devuelve las filas cuyo valor en la columna &#39;a&#39; es mayor que 1</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="búsqueda-de-datos-in" class="slide level2">
+<h2>Búsqueda de datos – <code>in</code></h2>
+<ul>
+<li><code>&lt;objeto&gt; in &lt;lista&gt;.index</code>: booleano que indica si el objeto está en la lista de índices semánticos</li>
+<li><code>&lt;objeto&gt; in &lt;lista&gt;.columns</code>: booleano que indica si el objeto está en la lista de columnas (solo para <code>DataFrame</code>)</li>
+</ul>
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href></a>df <span class="op">=</span> pd.DataFrame({<span class="st">&#39;a&#39;</span>: [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>], <span class="st">&#39;b&#39;</span>: [<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>]})</span>
+<span id="cb9-2"><a href></a><span class="co">&#39;a&#39;</span> <span class="kw">in</span> df.columns</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="slicing" class="slide level2">
 <h2>Slicing</h2>
 <ul>
 <li><code>Series</code> permiten slicing como los <code>ndarray</code> (por índice posicional o semántico)</li>
-<li>El slicing por índice posicional excluye el extremo superior (al igual que en <code>ndarray</code>)</li>
+<li>El slicing por índice posicional excluye el extremo superior (al igual que en <code>numpy</code>)</li>
 <li>El slicing por índice semántico incluye ambos extremos</li>
 <li><code>DataFrame</code> permiten slicing por filas y columnas, especificando el eje con el argumento <code>axis</code></li>
 </ul>
-<div class="fragment">
+<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href></a>s <span class="op">=</span> pd.Series([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>], index<span class="op">=</span>[<span class="st">&#39;a&#39;</span>, <span class="st">&#39;b&#39;</span>, <span class="st">&#39;c&#39;</span>, <span class="st">&#39;d&#39;</span>])</span>
+<span id="cb10-2"><a href></a>s[<span class="dv">0</span>:<span class="dv">2</span>]</span>
+<span id="cb10-3"><a href></a>s[<span class="st">&#39;a&#39;</span>:<span class="st">&#39;c&#39;</span>]</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href></a>df <span class="op">=</span> pd.DataFrame({<span class="st">&#39;a&#39;</span>: [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>], <span class="st">&#39;b&#39;</span>: [<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>]})</span>
+<span id="cb11-2"><a href></a>df.loc[<span class="dv">0</span>:<span class="dv">1</span>, <span class="st">&#39;a&#39;</span>:<span class="st">&#39;b&#39;</span>] <span class="co"># devuelve las dos primeras filas y las columnas &#39;a&#39; y &#39;b&#39;</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="filtrado-de-datos" class="slide level2">
+<h2>Filtrado de datos</h2>
 <ul>
 <li><code>loc</code>e <code>iloc</code> son útiles para filtrar filas y columnas simultáneamente, y trabajar con un subconjunto de los datos</li>
 <li>También es posible indexado condicional por máscaras booleanas, que se pueden generar con operadores lógicos</li>
-<li>Para eliminar filas o columnas, se puede usar el método <code>drop</code>, indicando los índices semánticos o posicionales de las filas o columnas a eliminar, y el eje con el argumento <code>axis</code></li>
 </ul>
-<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href></a>df <span class="op">=</span> pd.DataFrame({<span class="st">&#39;a&#39;</span>: [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>], <span class="st">&#39;b&#39;</span>: [<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>]})</span>
-<span id="cb5-2"><a href></a>df.drop([<span class="dv">0</span>, <span class="dv">1</span>], axis<span class="op">=</span><span class="dv">0</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href></a>df <span class="op">=</span> pd.DataFrame({<span class="st">&#39;a&#39;</span>: [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>], <span class="st">&#39;b&#39;</span>: [<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>]})</span>
+<span id="cb12-2"><a href></a>df.loc[df[<span class="st">&#39;a&#39;</span>] <span class="op">&gt;</span> <span class="dv">1</span>, <span class="st">&#39;b&#39;</span>] <span class="co"># devuelve los valores de la columna &#39;b&#39; cuyo valor en la columna &#39;a&#39; es mayor que 1</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="añadir-y-eliminar-columnas" class="slide level2">
+<h2>Añadir y eliminar columnas</h2>
+<ul>
+<li>Se pueden añadir columnas a un <code>DataFrame</code> simplemente asignando una serie a una nueva columna</li>
+<li>Se pueden eliminar columnas con el método <code>drop</code>, indicando el nombre de la columna y el eje con el argumento <code>axis</code></li>
+</ul>
+<div class="sourceCode" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href></a>df <span class="op">=</span> pd.DataFrame({<span class="st">&#39;a&#39;</span>: [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>], <span class="st">&#39;b&#39;</span>: [<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>]})</span>
+<span id="cb13-2"><a href></a>df[<span class="st">&#39;c&#39;</span>] <span class="op">=</span> [<span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>]</span>
+<span id="cb13-3"><a href></a>df.drop(<span class="st">&#39;c&#39;</span>, axis<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="ordenado-de-datos" class="slide level2">
 <h2>Ordenado de datos</h2>
@@ -1394,8 +1443,8 @@ Iván Moreno
 <li><code>rank</code> retorna el rango de cada elemento de la serie o columna, ordenados por los valores de la serie o columna</li>
 <li>Todas estas operaciones permiten especificar orden ascendente o descendente con el argumento <code>ascending</code></li>
 </ul>
-<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href></a>df <span class="op">=</span> pd.DataFrame({<span class="st">&#39;a&#39;</span>: [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>], <span class="st">&#39;b&#39;</span>: [<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>]})</span>
-<span id="cb6-2"><a href></a>df.sort_values(<span class="st">&#39;a&#39;</span>, ascending<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href></a>df <span class="op">=</span> pd.DataFrame({<span class="st">&#39;a&#39;</span>: [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>], <span class="st">&#39;b&#39;</span>: [<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>]})</span>
+<span id="cb14-2"><a href></a>df.sort_values(<span class="st">&#39;a&#39;</span>, ascending<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="operaciones-aritméticas" class="slide level2">
 <h2>Operaciones aritméticas</h2>
@@ -1409,7 +1458,7 @@ Iván Moreno
 <tr class="header">
 <th>Método</th>
 <th>Ejemplo</th>
-<th>Expresion Equivalente</th>
+<th>Expresión Equivalente</th>
 </tr>
 </thead>
 <tbody>
@@ -1443,8 +1492,8 @@ Iván Moreno
 <li>La función puede ser una función lambda o una función definida por el usuario</li>
 <li><code>apply</code> también se puede usar para aplicar una función a cada fila o columna de un <code>DataFrame</code>, especificando el eje con el argumento <code>axis</code></li>
 </ul>
-<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href></a>df <span class="op">=</span> pd.DataFrame({<span class="st">&#39;a&#39;</span>: [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>], <span class="st">&#39;b&#39;</span>: [<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>]})</span>
-<span id="cb7-2"><a href></a>df.<span class="bu">apply</span>(<span class="kw">lambda</span> x: x <span class="op">**</span> <span class="dv">2</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href></a>df <span class="op">=</span> pd.DataFrame({<span class="st">&#39;a&#39;</span>: [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>], <span class="st">&#39;b&#39;</span>: [<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>]})</span>
+<span id="cb15-2"><a href></a>df.<span class="bu">apply</span>(<span class="kw">lambda</span> x: x <span class="op">**</span> <span class="dv">2</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="estadística-descriptiva" class="slide level2">
 <h2>Estadística descriptiva</h2>
@@ -1514,20 +1563,70 @@ Iván Moreno
 </tbody>
 </table>
 </section>
+<section id="varianza-y-desviación-estándar" class="slide level2">
+<h2>Varianza y desviación estándar</h2>
+</section>
+<section id="varianza" class="slide level2">
+<h2>Varianza</h2>
+<ul>
+<li><code>var</code> calcula la varianza
+<ul>
+<li><span class="math inline">\(\sigma^2 = \frac{1}{N} \sum_{i=1}^N (x_i - \mu)^2\)</span></li>
+<li>Es una medida de dispersión que indica cuánto se alejan los valores de la media (esperanza)</li>
+<li>Es la media aritmética de las desviaciones al cuadrado de cada elemento con respecto a la media
+<ul>
+<li>Se elevan al cuadrado para evitar que las desviaciones negativas se cancelen con las positivas</li>
+</ul></li>
+<li>Expresa el grado de cambio de una variable respecto a su media en el tiempo</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href></a>df <span class="op">=</span> pd.DataFrame({<span class="st">&#39;a&#39;</span>: [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>], <span class="st">&#39;b&#39;</span>: [<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>]})</span>
+<span id="cb16-2"><a href></a>df.var() <span class="co"># varianza</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="desviación-estándar" class="slide level2">
+<h2>Desviación estándar</h2>
+<ul>
+<li><code>std</code> calcula la desviación estándar
+<ul>
+<li><span class="math inline">\(\sigma = \sqrt{\frac{1}{N} \sum_{i=1}^N (x_i - \mu)^2}\)</span></li>
+<li>Es la raíz cuadrada de la varianza</li>
+<li>Expresa la dispersión (fluctuación / volatilidad) en las mismas unidades que los datos</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href></a>df <span class="op">=</span> pd.DataFrame({<span class="st">&#39;a&#39;</span>: [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>], <span class="st">&#39;b&#39;</span>: [<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>]})</span>
+<span id="cb17-2"><a href></a>df.std() <span class="co"># desviación estándar</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="covarianza-y-correlación" class="slide level2">
+<h2>Covarianza y correlación</h2>
+</section>
+<section id="covarianza" class="slide level2">
+<h2>Covarianza</h2>
+<ul>
+<li><code>cov</code> calcula la covarianza entre columnas o series
+<ul>
+<li><span class="math inline">\(cov(X,Y) = E[(X - E[X])(Y - E[Y])]\)</span></li>
+<li>Es la media aritmética de los productos de las desviaciones de cada variable con respecto a su media
+<ul>
+<li>Intuitivamente, mide el grado de variación conjunta de dos variables aleatorias respecto a sus medias</li>
+</ul></li>
+<li>Una covarianza positiva indica una relación lineal positiva, mientras que una covarianza negativa indica una relación lineal negativa</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href></a>df <span class="op">=</span> pd.DataFrame({<span class="st">&#39;a&#39;</span>: [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>], <span class="st">&#39;b&#39;</span>: [<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>]})</span>
+<span id="cb18-2"><a href></a>df.cov() <span class="co"># covarianza</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
 <section id="correlación" class="slide level2">
 <h2>Correlación</h2>
 <ul>
 <li><code>corr</code> calcula la correlación entre columnas o series
 <ul>
 <li><span class="math inline">\(\rho_{X,Y} = \frac{cov(X,Y)}{\sigma_X \sigma_Y}\)</span></li>
-</ul></li>
-<li><code>cov</code> calcula la covarianza entre columnas o series
-<ul>
-<li><span class="math inline">\(cov(X,Y) = E[(X - E[X])(Y - E[Y])]\)</span></li>
+<li>Se define como la covarianza estandarizada, es decir, la covarianza dividida por el producto de las desviaciones estándar de las dos variables</li>
+<li>Nos da información sobre la fuerza y la dirección de la relación lineal entre dos variables aleatorias, al contrario que la covarianza, que solo nos da información sobre la dirección</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href></a>df <span class="op">=</span> pd.DataFrame({<span class="st">&#39;a&#39;</span>: [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>], <span class="st">&#39;b&#39;</span>: [<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>]})</span>
-<span id="cb8-2"><a href></a>df.corr()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href></a>df <span class="op">=</span> pd.DataFrame({<span class="st">&#39;a&#39;</span>: [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>], <span class="st">&#39;b&#39;</span>: [<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>]})</span>
+<span id="cb19-2"><a href></a>df.corr() <span class="co"># correlación</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 

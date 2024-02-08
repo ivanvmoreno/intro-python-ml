@@ -1,0 +1,11 @@
+name: nonsupervised
+
+dependencies:
+  - python=3.11
+  - jupyter
+  - pandas
+  - numpy
+  - scikit-learn
+  - matplotlib
+  - seaborn
+  - networkx=2.8.4

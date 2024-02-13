@@ -1,0 +1,10 @@
+name: supervised
+
+dependencies:
+  - python=3.11
+  - jupyter
+  - pandas
+  - numpy
+  - scikit-learn
+  - matplotlib
+  - seaborn
